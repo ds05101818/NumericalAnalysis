@@ -5,7 +5,6 @@
 #include <stddef.h>
 #include <stdlib.h>
 #define SWAP(a,b) {temp=(a);(a)=(b);(b)=temp;}
-#define _CRT_SECURE_NO_WARNINGS
 #define TINY 1.0e-20
 #define NR_END 1
 #define FREE_ARG char*
