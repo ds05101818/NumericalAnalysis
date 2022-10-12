@@ -565,7 +565,7 @@ void itmprove(FILE *fp, float **a, float *b, int *n) {
 	for (int i = 1; i <= m; i++) {
 		fscanf(fp, "%f", &b[i]);
 	}
-	printf("The answer by using mprove\n");
+	printf("The answer by using mprove,,,\n");
 
 	float** alud = (float**)malloc(sizeof(float*) * (*n + 1));
 	float* x = (float*)malloc(sizeof(float) * (*n + 1));
