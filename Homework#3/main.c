@@ -5,7 +5,6 @@
 #include <stddef.h>
 #include <stdlib.h>
 #define SWAP(a,b) {temp=(a);(a)=(b);(b)=temp;}
-#define _CRT_SECURE_NO_WARNINGS
 #define TINY 1.0e-20
 #define NR_END 1
 #define FREE_ARG char*
@@ -566,7 +565,7 @@ void itmprove(FILE *fp, float **a, float *b, int *n) {
 	for (int i = 1; i <= m; i++) {
 		fscanf(fp, "%f", &b[i]);
 	}
-	printf("The answer by using mprove\n");
+	printf("The answer by using mprove,,,\n");
 
 	float** alud = (float**)malloc(sizeof(float*) * (*n + 1));
 	float* x = (float*)malloc(sizeof(float) * (*n + 1));
