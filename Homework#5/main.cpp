@@ -7,7 +7,7 @@ using namespace cv;
 void resize_bilinear(Mat &original_img, Mat &resized_img, double rate) {
 	int x, y;
 	int original_x, original_y;
-
+	
 	for (y = 0; y < resized_img.rows; y++) {
 		for (x = 0; x < resized_img.cols; x++) {
 			original_x = (int)(x / rate);
@@ -33,10 +33,12 @@ void resize_bilinear(Mat &original_img, Mat &resized_img, double rate) {
 	}
 }
 
-int main()
-{
+int main(){
+	int m, n;
 	Mat img;
 	img = imread("dog.jpg"); 
+	cin >> m >> n;
+	double rate = (double)(m * n) / 10000;
 	int w = img.cols;
 	int h = img.rows;
 	if (img.empty()) {
@@ -46,7 +48,7 @@ int main()
 	imshow("Original image", img);
 
 	Mat resized_img(h, w, CV_8UC3, Scalar(0));
-	resize_bilinear(img, resized_img, 1.2);
+	resize_bilinear(img, resized_img, rate);
 	imshow("Resized image", resized_img);
 	waitKey(0);
 }
