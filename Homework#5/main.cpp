@@ -34,13 +34,12 @@ void resize_bilinear(Mat &original_img, Mat &resized_img, double rate) {
 }
 
 int main(){
-	int m, n;
 	Mat img;
 	img = imread("dog.jpg"); 
-	cin >> m >> n;
-	double rate = (double)(m * n) / 10000;
 	int w = img.cols;
 	int h = img.rows;
+	cin >> w >> h;
+	double rate = (double)(w*h) / 10000;
 	if (img.empty()) {
 		cout << "No image\n";
 	}
