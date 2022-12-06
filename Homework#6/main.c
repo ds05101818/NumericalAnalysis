@@ -111,35 +111,35 @@ void read_data(FILE *file, float *x, float *y, float *xp, float *yp) {
 	}
 }
 
-void calculation(float **f, float *x, float *y, float *xp, float *yp, int n, int m, int k) {
-	float ** A = matrix(1, m, 1, m);
+void calculation(float **Jy, float *x, float *y, float *xp, float *yp, int n, int m, int k) {
+	float ** JJ = matrix(1, m, 1, m);
 	for (int i = 1; i <= m; i++) {
 		for (int j = 1; j <= m; j++) {
-			A[i][j] = 0;
+			JJ[i][j] = 0;
 			if (j <= 2) {
-				f[i][j] = 0;
+				Jy[i][j] = 0;
 			}
 		}
 	}
 	for (int i = 0; i < n; i++) {
-		A[1][1] += x[i] * x[i];
-		A[1][2] += x[i] * y[i];
-		A[1][3] += x[i];
-		A[2][2] += y[i] * y[i];
-		A[2][3] += y[i];
-		f[1][1] += x[i] * xp[i];
-		f[1][2] += x[i] * yp[i];
-		f[2][1] += xp[i] * y[i];
-		f[2][2] += y[i] * yp[i];
-		f[3][1] += xp[i];
-		f[3][2] += yp[i];
+		JJ[1][1] += x[i] * x[i];
+		JJ[1][2] += x[i] * y[i];
+		JJ[1][3] += x[i];
+		JJ[2][2] += y[i] * y[i];
+		JJ[2][3] += y[i];
+		Jy[1][1] += x[i] * xp[i];
+		Jy[1][2] += x[i] * yp[i];
+		Jy[2][1] += xp[i] * y[i];
+		Jy[2][2] += y[i] * yp[i];
+		Jy[3][1] += xp[i];
+		Jy[3][2] += yp[i];
 	}
-	A[2][1] = A[1][2];
-	A[3][1] = A[1][3];
-	A[3][2] = A[2][3];
-	A[3][3] = n;
+	JJ[2][1] = JJ[1][2];
+	JJ[3][1] = JJ[1][3];
+	JJ[3][2] = JJ[2][3];
+	JJ[3][3] = n;
 
-	gaussj(A, m, f, k);
+	gaussj(JJ, m, Jy, k);
 }
 
 int main() {
@@ -148,16 +148,16 @@ int main() {
 	float *y = (float*)malloc(sizeof(float)*77);
 	float *xp = (float*)malloc(sizeof(float)*77);
 	float *yp = (float*)malloc(sizeof(float)*77);
-	float **f = matrix(1, 3, 1, 2);
+	float **Jy = matrix(1, 3, 1, 2);
 	int n = 1;
 
 	fp = fopen("fitdata1.dat", "r"); 
 	printf("The Answer of fitdata1\n"); 
 	read_data(fp, x, y, xp, yp);
-	calculation(f, x, y, xp, yp, 77, 3, 2);
+	calculation(Jy, x, y, xp, yp, 77, 3, 2);
 	for (int i = 1; i <= 2; i++) {
 		for (int j = 1; j <= 3; j++) {
-			printf("a%d : %f\n", n++, f[j][i]);
+			printf("a%d : %f\n", n++, Jy[j][i]);
 		}
 	}
 	fclose(fp);
@@ -166,11 +166,11 @@ int main() {
 	fp = fopen("fitdata2.dat", "r");
 	printf("The Answer of fitdata2\n");
 	read_data(fp, x, y, xp, yp);
-	calculation(f, x, y, xp, yp, 77, 3, 2);
+	calculation(Jy, x, y, xp, yp, 77, 3, 2);
 	n = 1;
 	for (int i = 1; i <= 2; i++) {
 		for (int j = 1; j <= 3; j++) {
-			printf("a%d : %f\n", n++, f[j][i]);
+			printf("a%d : %f\n", n++, Jy[j][i]);
 		}
 	}
 	fclose(fp);
@@ -179,11 +179,11 @@ int main() {
 	fp = fopen("fitdata3.dat", "r");
 	printf("The Answer of fitdata3\n");
 	read_data(fp, x, y, xp, yp);
-	calculation(f, x, y, xp, yp, 77, 3, 2);
+	calculation(Jy, x, y, xp, yp, 77, 3, 2);
 	n = 1;
 	for (int i = 1; i <= 2; i++) {
 		for (int j = 1; j <= 3; j++) {
-			printf("a%d : %f\n", n++, f[j][i]);
+			printf("a%d : %f\n", n++, Jy[j][i]);
 		}
 	}
 	fclose(fp);
